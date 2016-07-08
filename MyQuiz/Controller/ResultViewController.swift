@@ -41,6 +41,14 @@ class ResultViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func tapBackTitileButton(sender: AnyObject) {
+        if let navigationController = self.navigationController where navigationController.viewControllers.count >= 2 {
+        self.navigationController?.popToViewController(navigationController.viewControllers[1], animated: true)
+        } else {
+            // FIXME:
+            print("戻れませんでした")
+        }
+    }
 
     /*
     // MARK: - Navigation
