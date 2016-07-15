@@ -11,7 +11,7 @@ import AudioToolbox
 
 class QuestionViewController: UIViewController {
     
-    var questionData :QuestionData!
+    var questionData :QuestionData?
     
     @IBOutlet weak var questionNoLabel: UILabel!
     @IBOutlet weak var questionTextView: UITextView!
@@ -29,15 +29,30 @@ class QuestionViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        //初期データ設定
-        questionNoLabel.text = "Q.\(questionData.questionNo)"
-        questionTextView.text = questionData.question
-        answer1Button.setTitle(questionData.answer1, forState: UIControlState.Normal)
-        answer2Button.setTitle(questionData.answer2, forState: UIControlState.Normal)
-        answer3Button.setTitle(questionData.answer3, forState: UIControlState.Normal)
-        answer4Button.setTitle(questionData.answer4, forState: UIControlState.Normal)
         
-        
+        if let questionData = questionData {
+            //初期データ設定
+            questionNoLabel.text = "Q.\(questionData.questionNo)"
+            if let question = questionData.question {
+                questionTextView.text = question
+            }
+            
+            if let answer1 = questionData.answer1 {
+                answer1Button.setTitle(answer1, forState: UIControlState.Normal)
+            }
+            
+            if let answer2 = questionData.answer2 {
+            answer2Button.setTitle(answer2, forState: UIControlState.Normal)
+            }
+            
+            if let answer3 = questionData.answer3 {
+            answer3Button.setTitle(answer3, forState: UIControlState.Normal)
+            }
+            
+            if let answer4 = questionData.answer4 {
+            answer4Button.setTitle(answer4, forState: UIControlState.Normal)
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -46,22 +61,30 @@ class QuestionViewController: UIViewController {
     }
     
     @IBAction func tapAnswer1Button(sender: AnyObject) {
-        questionData.userChoiceAnswerNumber = 1
+        if let questionData = questionData {
+            questionData.userChoiceAnswerNumber = 1
+        }
         goNextQuestionWithAnimation()
     }
     
     @IBAction func tapAnswer2Button(sender: AnyObject) {
-        questionData.userChoiceAnswerNumber = 2
+        if let questionData = questionData {
+            questionData.userChoiceAnswerNumber = 2
+        }
         goNextQuestionWithAnimation()
     }
     
     @IBAction func tapAnswer3Button(sender: AnyObject) {
-        questionData.userChoiceAnswerNumber = 3
+        if let questionData = questionData {
+            questionData.userChoiceAnswerNumber = 3
+        }
         goNextQuestionWithAnimation()
     }
     
     @IBAction func tapAnswer4Button(sender: AnyObject) {
-        questionData.userChoiceAnswerNumber = 4
+        if let questionData = questionData {
+            questionData.userChoiceAnswerNumber = 4
+        }
         goNextQuestionWithAnimation()
     }
     
@@ -70,7 +93,7 @@ class QuestionViewController: UIViewController {
     func goNextQuestionWithAnimation() {
         
         //正誤判定
-        if questionData.isCorrect() {
+        if let questionData = questionData where questionData.isCorrect() {
             //正解
             goNextQuestionWithCorrectAnimation()
         } else {
@@ -114,20 +137,35 @@ class QuestionViewController: UIViewController {
     func goNextQuestion() {
         
         //まだ残り問題があれば次の問題へ
-        if let nextQuestion = QuestionDataManager.sharedInstance.nextQuestion() {
+        if let nextQuestion = QuestionDataManager.sharedInstance.nextQuestion(),
+            nextQuestionViewController = storyboard?.instantiateViewControllerWithIdentifier(QuestionViewController.className) as? QuestionViewController {
             
+//            if let navigationController = self.navigationController where navigationController.viewControllers.count >= 2 {
+//                if let questionViewController = navigationController.viewControllers[2] as? QuestionViewController {
+//                    questionViewController.questionData = nextQuestion
+//                    self.navigationController?.popToViewController(questionViewController, animated: true)
+//                } else {
+//                    // FIXME:
+//                    print("can not cast QuestionViewController")
+//                }
+//            } else {
+//                // FIXME:
+//                print("navigationController.viewControllers.count < 2")
+//            }
+            
+            
+            nextQuestionViewController.questionData = nextQuestion
             //次の画面の設定
-            if let nextQuestionViewController = storyboard?.instantiateViewControllerWithIdentifier("question") as? QuestionViewController { nextQuestionViewController.questionData = nextQuestion
-                
-                //画面遷移
-                self.presentViewController(nextQuestionViewController, animated: true, completion: nil)
-            }
+            //画面遷移
+            self.navigationController?.pushViewController(nextQuestionViewController, animated: true)
+
         } else {
             //問題文がなければ結果画面へ
-            if let resultViewController = storyboard?.instantiateViewControllerWithIdentifier("result") as? ResultViewController {
+            if let resultViewController = storyboard?.instantiateViewControllerWithIdentifier(ResultViewController.className) as? ResultViewController {
                 
                 //画面遷移
-                self.presentViewController(resultViewController, animated: true, completion: nil)
+//                self.presentViewController(resultViewController, animated: true, completion: nil)
+                self.navigationController?.pushViewController(resultViewController, animated: true)
             }
         }
     }

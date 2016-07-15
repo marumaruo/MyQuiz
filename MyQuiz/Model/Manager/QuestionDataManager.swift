@@ -8,51 +8,6 @@
 
 import Foundation
 
-class QuestionData {
-    
-    //問題文
-    var question: String?
-    
-    //選択肢
-    var answer1: String?
-    var answer2: String?
-    var answer3: String?
-    var answer4: String?
-    
-    //正解番号
-    var correctAnswerNumber: Int
-    
-    //ユーザの選択
-    var userChoiceAnswerNumber: Int?
-    
-    //問題番号
-    var questionNo: Int = 0
-    
-    
-    //クラス生成時の初期化処理
-    init(questionSourceDataArray: [String]){
-        question = questionSourceDataArray[0]
-        answer1 = questionSourceDataArray[1]
-        answer2 = questionSourceDataArray[2]
-        answer3 = questionSourceDataArray[3]
-        answer4 = questionSourceDataArray[4]
-        correctAnswerNumber = Int(questionSourceDataArray[5])!
-    }
-    
-    func isCorrect() -> Bool{
-        //正誤判定
-        if correctAnswerNumber == userChoiceAnswerNumber {
-            
-            //正解
-            return true
-        }
-        
-        //不正解
-        return false
-    }
-}
-
-
 class QuestionDataManager {
     
     //シングルトン宣言
@@ -61,6 +16,7 @@ class QuestionDataManager {
     //複数問題文を格納する配列の宣言
     var questionDataArray = [QuestionData]()
     
+    var questionData: QuestionData?
     
     //現在の問題番号
     var nowQuestionIndex: Int = 0
@@ -69,9 +25,8 @@ class QuestionDataManager {
     private init(){
     }
     
-    
     //CSV読み込み処理
-    func loadQuestion(){
+    func loadQuestion() -> QuestionData? {
         
         //格納済問題データの削除
         questionDataArray.removeAll()
@@ -99,12 +54,21 @@ class QuestionDataManager {
                         
                         //問題番号を設定
                         questionData.questionNo = self.questionDataArray.count
+                        
+                        self.questionData = questionData
                     })
                     
+                    return self.questionData
+                    
+                } else {
+                    return nil
                 }
             } catch let error {
                 print(error)
+                return nil
             }
+        } else {
+            return nil
         }
     }
     
