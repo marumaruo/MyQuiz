@@ -140,20 +140,6 @@ class QuestionViewController: UIViewController {
         if let nextQuestion = QuestionDataManager.sharedInstance.nextQuestion(),
             nextQuestionViewController = storyboard?.instantiateViewControllerWithIdentifier(QuestionViewController.className) as? QuestionViewController {
             
-//            if let navigationController = self.navigationController where navigationController.viewControllers.count >= 2 {
-//                if let questionViewController = navigationController.viewControllers[2] as? QuestionViewController {
-//                    questionViewController.questionData = nextQuestion
-//                    self.navigationController?.popToViewController(questionViewController, animated: true)
-//                } else {
-//                    // FIXME:
-//                    print("can not cast QuestionViewController")
-//                }
-//            } else {
-//                // FIXME:
-//                print("navigationController.viewControllers.count < 2")
-//            }
-            
-            
             nextQuestionViewController.questionData = nextQuestion
             //次の画面の設定
             //画面遷移
