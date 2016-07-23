@@ -10,3 +10,4 @@ import Foundation
 
 let Main = "Main"
 let SliderQuizStoryboard = "SliderQuizStoryboard"
+let SelectChoiceStoryboard = "SelectChoiceStoryboard"

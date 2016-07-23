@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gAl-6E-8F9">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Select Choice View Controller-->
+        <scene sceneID="BBx-Yw-MRH">
+            <objects>
+                <viewController storyboardIdentifier="SelectChoiceViewController" id="gAl-6E-8F9" customClass="SelectChoiceViewController" customModule="MyQuiz" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PGq-JT-uPa"/>
+                        <viewControllerLayoutGuide type="bottom" id="yXa-5J-LZw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yxX-rs-jc8">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oBl-k2-rue">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="oBl-k2-rue" firstAttribute="leading" secondItem="yxX-rs-jc8" secondAttribute="leading" id="MJA-qM-qRk"/>
+                            <constraint firstAttribute="bottom" secondItem="oBl-k2-rue" secondAttribute="bottom" id="Tpo-TT-1mm"/>
+                            <constraint firstAttribute="trailing" secondItem="oBl-k2-rue" secondAttribute="trailing" id="bkv-v7-rSf"/>
+                            <constraint firstItem="oBl-k2-rue" firstAttribute="top" secondItem="yxX-rs-jc8" secondAttribute="top" id="rJz-Ju-4LB"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="oBl-k2-rue" id="apw-cD-Sf1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9mA-Uf-2Ll" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-141" y="311"/>
+        </scene>
+    </scenes>
+</document>

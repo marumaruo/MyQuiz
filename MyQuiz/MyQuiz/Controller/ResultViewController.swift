@@ -43,7 +43,8 @@ class ResultViewController: UIViewController {
     
     @IBAction func tapBackTitileButton(sender: AnyObject) {
         if let navigationController = self.navigationController where navigationController.viewControllers.count >= 2 {
-        self.navigationController?.popToViewController(navigationController.viewControllers[1], animated: true)
+//        self.navigationController?.popToViewController(navigationController.viewControllers[1], animated: true)
+            self.navigationController?.popToRootViewControllerAnimated(true)
         } else {
             // FIXME:
             print("戻れませんでした")
